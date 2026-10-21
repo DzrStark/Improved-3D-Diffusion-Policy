@@ -6,6 +6,7 @@ __pycache__/
 ckpts/
 
 tsingtec_raw_data/
+tsingtec_training_data/
 yanjie_data/
 timm/
 .vscode/
