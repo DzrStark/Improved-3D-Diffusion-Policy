@@ -83,6 +83,13 @@ class EMAModel:
                     ema_param.mul_(self.decay)
                     ema_param.add_(param.data.to(dtype=ema_param.dtype), alpha=1 - self.decay)
 
+            # Original: only parameters were updated; no buffer synchronization.
+            # Keep BN running_mean/running_var/num_batches_tracked and other
+            # buffers identical to the source model, including integer buffers.
+            # Parameter EMA and its BN/frozen-parameter exceptions above are unchanged.
+            for buffer, ema_buffer in zip(module.buffers(recurse=False), ema_module.buffers(recurse=False)):
+                ema_buffer.copy_(buffer.to(dtype=ema_buffer.dtype))
+
         # verify that iterating over module and then parameters is identical to parameters recursively.
         # assert old_all_dataptrs == all_dataptrs
         self.optimization_step += 1

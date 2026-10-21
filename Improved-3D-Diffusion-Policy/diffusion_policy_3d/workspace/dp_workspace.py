@@ -50,6 +50,9 @@ class DPWorkspace(BaseWorkspace):
         self.ema_model: DiffusionImagePolicy = None
         if cfg.training.use_ema:
             self.ema_model = copy.deepcopy(self.model)
+            # EMA is an inference copy; only self.model belongs to the optimizer.
+            self.ema_model.eval()
+            self.ema_model.requires_grad_(False)
 
         # configure training state
         self.optimizer = hydra.utils.instantiate(
@@ -58,6 +61,18 @@ class DPWorkspace(BaseWorkspace):
         # configure training state
         self.global_step = 0
         self.epoch = 0
+
+        self._set_model_modes(training=True)
+
+    def _set_model_modes(self, training):
+        self.model.train(training)
+        # Preserve the encoder's original R3M eval mode (fixed BN statistics).
+        # eval() does not disable gradients or the separate random transforms.
+        if self.model.obs_encoder.model_name == 'r3m':
+            for rgb_model in self.model.obs_encoder.key_model_map.values():
+                rgb_model.eval()
+        if self.ema_model is not None:
+            self.ema_model.eval()
 
     def run(self):
         cfg = copy.deepcopy(self.cfg)
@@ -159,6 +174,7 @@ class DPWorkspace(BaseWorkspace):
             for local_epoch_idx in tqdm.tqdm(range(cfg.training.num_epochs)):
                 step_log = dict()
                 # ========= train for this epoch ==========
+                self._set_model_modes(training=True)
                 train_losses = list()
                 for batch_idx, batch in enumerate(train_dataloader):
                     # device transfer
@@ -215,7 +231,9 @@ class DPWorkspace(BaseWorkspace):
                 policy = self.model
                 if cfg.training.use_ema:
                     policy = self.ema_model
-                policy.eval()
+                # Original: only switched the selected sampling policy.
+                # policy.eval()
+                self._set_model_modes(training=False)
 
               
                 # run validation
@@ -280,7 +298,9 @@ class DPWorkspace(BaseWorkspace):
                     if topk_ckpt_path is not None:
                         self.save_checkpoint(path=topk_ckpt_path)
                 # ========= eval end for this epoch ==========
-                policy.train()
+                # Original: with EMA enabled this put EMA (including R3M BN) in train mode.
+                # policy.train()
+                self._set_model_modes(training=True)
 
                 # end of epoch
                 # log of last step is combined with validation and rollout
@@ -288,6 +308,11 @@ class DPWorkspace(BaseWorkspace):
                 json_logger.log(step_log)
                 self.global_step += 1
                 self.epoch += 1
+
+        # Periodic saves above can miss the final epochs. Save the completed state
+        # synchronously, including model/EMA/normalizer/optimizer and cfg.
+        if cfg.checkpoint.save_ckpt and cfg.checkpoint.save_last_ckpt:
+            self.save_checkpoint(use_thread=False)
 
         # stop wandb run
         wandb_run.finish()
