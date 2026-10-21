@@ -1,0 +1,29 @@
+name: g1_dex3_pick_right
+
+shape_meta:
+  obs:
+    image:
+      shape: [3, 224, 224]
+      type: rgb
+      horizon: ${n_obs_steps}
+    agent_pos:
+      # Zarr order: left_arm[7], right_arm[7], left_ee[7], right_ee[7].
+      shape: [28]
+      type: low_dim
+      horizon: ${n_obs_steps}
+  action:
+    shape: [28]
+    horizon: ${horizon}
+
+dataset:
+  _target_: diffusion_policy_3d.dataset.gr1_dex_dataset_image.GR1DexDatasetImage
+  zarr_path: data/dex3_pick_right_rgb.zarr
+  horizon: ${horizon}
+  pad_before: ${eval:'${n_obs_steps}-1'}
+  pad_after: ${eval:'${n_action_steps}-1'}
+  seed: ${training.seed}
+  val_ratio: 0.0
+  max_train_episodes: null
+  task_name: ${task.name}
+  use_img: true
+  use_depth: false

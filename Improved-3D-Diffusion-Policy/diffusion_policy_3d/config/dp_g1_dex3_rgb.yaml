@@ -1,0 +1,35 @@
+defaults:
+  - dp_224x224_r3m
+  - override task: g1_dex3_pick_right-image
+  - _self_
+
+name: train_g1_dex3_rgb
+exp_name: g1_dex3_pick_right_rgb
+
+training:
+  resume: false
+
+logging:
+  project: g1_dex3_rgb
+  group: ${exp_name}
+  name: ${task_name}_seed${training.seed}_${now:%Y.%m.%d-%H.%M.%S.%f}
+  mode: online
+  resume: false
+  tags: [g1-d, dex3, pick-right, rgb, r3m]
+
+checkpoint:
+  save_ckpt: true
+  save_last_ckpt: true
+
+multi_run:
+  run_dir: data/outputs/g1_dex3_rgb/${now:%Y.%m.%d}/${now:%H.%M.%S.%f}_seed${training.seed}
+  wandb_name_base: ${logging.name}
+
+hydra:
+  job:
+    # Keep relative Zarr paths anchored to the project launch directory.
+    chdir: false
+  run:
+    dir: ${multi_run.run_dir}
+  sweep:
+    dir: ${multi_run.run_dir}
