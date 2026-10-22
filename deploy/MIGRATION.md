@@ -8,6 +8,7 @@
 | --- | --- |
 | `deploy/` 的代码、配置、说明 | 必需；报告可选择保留作基线 |
 | `Improved-3D-Diffusion-Policy/diffusion_policy_3d/` | 必需；复用原policy、U-Net、normalizer、encoder等，不启动train.py |
+| `Improved-3D-Diffusion-Policy/tools/` | 数据转换及完整 verify 需要；转换器已从原始数据目录迁入此处 |
 | `third_party/r3m/r3m/` | 必需；使用本仓库修改过的R3M，不能换未经比较的PyPI版本 |
 | 选定任务的正式 `latest.ckpt` | 必需；约1.44GB，完整训练包含model/EMA/optimizer，部署只取EMA |
 | 对应 `tsingtec_training_data/<task>` | 离线回放必需；保持Zarr目录完整，含conversion_report.json |
@@ -29,6 +30,8 @@ python -m pip install --no-index --find-links /path/to/wheelhouse \
 `omegaconf`、Hydra、diffusers、huggingface-hub、timm之间需要保持本环境兼容版本，不能随意升级最新包。当前文件记录的是已安装版本而不是声称从零安装已验证。加载完整训练包使用dill/pickle，只加载自己可信的正式文件；SHA-256用于迁移核对，不是陌生pickle的安全隔离。
 
 ## 路径与离线验收
+
+Git 不包含数据、正式权重、R3M 预训练缓存或设备 URDF，获取和布局见 [REPRODUCING.md](../REPRODUCING.md)。旧报告中的绝对路径是原机记录，不能直接照搬。
 
 配置中 `path_base: ../..` 相对配置文件位置，默认定位仓库根目录。变更 `training_root`、`checkpoint`、`zarr`、`raw_root` 即可迁移；代码没有散落本机工作目录路径。输出目录用CLI显式给出，与正式权重分离。
 

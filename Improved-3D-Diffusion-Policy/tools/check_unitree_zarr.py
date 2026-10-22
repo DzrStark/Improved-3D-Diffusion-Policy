@@ -11,7 +11,7 @@ import numpy as np
 import zarr
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2] / "Improved-3D-Diffusion-Policy"
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 
 def check(raw_dir, zarr_path, all_images=False):
@@ -23,7 +23,9 @@ def check(raw_dir, zarr_path, all_images=False):
     assert root.attrs["conversion_complete"] and report["conversion_complete"]
     assert len(episodes) == len(ends) == len(report["episodes"]) == report["n_episodes"] > 0
     n_frames = report["n_frames"]
-    assert root.attrs["source_root"] == report["source_root"] == str(raw_dir)
+    # Keep the original conversion location as provenance. The input may have
+    # moved to another host; verify its contents using the per-episode hashes below.
+    assert root.attrs["source_root"] == report["source_root"]
     assert root.attrs["n_episodes"] == len(episodes)
     assert root.attrs["n_frames"] == n_frames
     assert root.attrs["image_processing"]["source"] == report["image_processing"]["source"] == "colors.color_1"
@@ -96,6 +98,7 @@ def check(raw_dir, zarr_path, all_images=False):
         block = images[i:i + images.chunks[0]]
         assert block.shape[1:] == (224, 224, 3) and block.dtype == np.uint8
     result = {"passed": True, "n_episodes": len(episodes), "n_frames": start,
+              "source_root_at_conversion": report["source_root"], "checked_raw_root": str(raw_dir),
               "all_state_action_values_exact_after_float32": True,
               "all_image_chunks_readable": True, "rgb_pixel_checks": pixel_checks,
               "rgb_pixel_check_count": pixel_check_count,
@@ -109,7 +112,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--raw-dir", type=Path,
                         default=PROJECT_ROOT.parent / "tsingtec_raw_data/dex3_pick/right")
-    parser.add_argument("--zarr", type=Path, default=PROJECT_ROOT / "data/dex3_pick_right_rgb.zarr")
+    parser.add_argument("--zarr", type=Path, default=PROJECT_ROOT.parent / "tsingtec_training_data/right_pick")
     parser.add_argument("--all-images", action="store_true", help="Compare every converted RGB image with its source color_1 JPEG")
     args = parser.parse_args()
     check(args.raw_dir, args.zarr, all_images=args.all_images)

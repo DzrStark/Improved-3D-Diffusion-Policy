@@ -13,8 +13,8 @@ import zarr
 from numcodecs import Blosc
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2] / "Improved-3D-Diffusion-Policy"
-DEFAULT_RAW_DIR = Path(__file__).resolve().parents[1] / "dex3_pick" / "right"
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_RAW_DIR = PROJECT_ROOT.parent / "tsingtec_raw_data/dex3_pick/right"
 # Never derive this order from JSON dictionary iteration or info.joint_names.
 JOINT_GROUPS = ("left_arm", "right_arm", "left_ee", "right_ee")
 JOINT_SLICES = {name: [7 * i, 7 * (i + 1)] for i, name in enumerate(JOINT_GROUPS)}
@@ -142,7 +142,7 @@ def convert(raw_dir, output):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--raw-dir", type=Path, default=DEFAULT_RAW_DIR, help="Directory containing episode_*/data.json")
-    parser.add_argument("--output", type=Path, default=PROJECT_ROOT / "data/dex3_pick_right_rgb.zarr")
+    parser.add_argument("--output", type=Path, default=PROJECT_ROOT.parent / "tsingtec_training_data/right_pick")
     args = parser.parse_args()
     convert(args.raw_dir, args.output)
 

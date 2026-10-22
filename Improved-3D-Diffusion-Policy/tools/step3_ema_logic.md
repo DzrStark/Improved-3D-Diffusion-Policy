@@ -61,7 +61,7 @@ ema_model.py：
 
 ## 如何核对
 
-    /home/dingzirong/miniconda3/envs/idp3/bin/python tools/check_g1_dex3_ema.py
+    python tools/check_g1_dex3_ema.py
 
 检查使用真实完整 Zarr 和正式网络，在 CPU 上跑 3 个 epoch、每轮 1 个 batch（batch_size=2），
 仅用于验证模式切换和更新，不是正式训练。测试关闭日志联网，生产配置仍为 online。
@@ -84,5 +84,5 @@ EMA 原公式及 buffer 一致性，并读取结束后的 checkpoint 核对最�
 - 检查未运行验证、未上传日志。未做正式长训练，CPU 成功不代表 GPU 已可用。
 
 结果：data/g1_dex3_ema_check/check_result.json。
-检查用权重：data/g1_dex3_ema_check/checkpoints/latest.ckpt。
+历史检查用权重：data/g1_dex3_ema_check/checkpoints/latest.ckpt（已于 2026-10-22 清理，保留检查报告）。
 这是 3 个 batch 的链路检查权重，不作为正式训练结果；完整预测重载和过拟合检查仍按第 4 步实施。

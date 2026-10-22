@@ -1,5 +1,7 @@
 # 开始训练 G1-D + Dex3 RGB 策略
 
+本文的“项目根目录”均指内层训练代码根目录（包含 `train.py` 和 `tools/`）。完整安装和产物准备见 [REPRODUCING.md](../../REPRODUCING.md)。四任务正式训练现已完成，本文短程检查结果为历史记录；7 个检查 checkpoint 已清理，本机报告保留。
+
 ## 正式训练命令
 
 在项目根目录执行：
@@ -8,11 +10,11 @@
 ./tools/train_g1_dex3_rgb.sh
 ```
 
-脚本显式使用 `dp_g1_dex3_rgb` 配置、数据 `data/dex3_pick_right_rgb.zarr` 和 GPU 0，
+脚本显式使用 `dp_g1_dex3_rgb` 配置、数据 `../tsingtec_training_data/right_pick` 和 GPU 0，
 从任意工作目录以脚本路径调用都能定位仓库。每次默认创建新的日期/时间/seed 输出目录，已有输出目录会拒绝覆盖。
 训练使用全部 60 条 episode，保存 latest 和周期 checkpoint；WandB 使用 online 模式，实时上传训练日志。
 
-脚本依赖已安装项目依赖的 idp3 conda 环境。运行前激活环境并确认 GPU 可用：
+脚本依赖安装了 `requirements-g1-rgb.txt` 的 Python 环境。运行前激活环境并确认 GPU 可用：
 
 ```bash
 conda activate idp3
@@ -22,13 +24,13 @@ python -c 'import torch; print(torch.cuda.is_available(), torch.cuda.device_coun
 
 2026-10-21 的检查中，沙箱内 torch.cuda.is_available() 为 False，但批准在沙箱外执行后，
 GPU 入口已完成 2 个真实 batch、离线日志和 checkpoint 保存。
-正式长训练尚未启动；请在实际训练终端确认 GPU 可用后运行。
+四任务正式训练现已完成；目标主机仍需独立确认 GPU 可用。
 
 ## 指定参数
 
 ```bash
 ./tools/train_g1_dex3_rgb.sh \
-  --zarr data/dex3_pick_right_rgb.zarr \
+  --zarr ../tsingtec_training_data/right_pick \
   --gpu 0 \
   --seed 42 \
   --output-dir data/outputs/g1_dex3_rgb/run_seed42
@@ -37,7 +39,7 @@ GPU 入口已完成 2 个真实 batch、离线日志和 checkpoint 保存。
 支持 `--zarr PATH`、`--gpu INDEX`、`--seed INTEGER`、`--output-dir PATH`、`--python PATH`。
 相对数据/输出路径以项目根目录为基准，`--help` 查看用法。
 脚本通过 CUDA_VISIBLE_DEVICES 选择该 GPU，再使用可见设备 cuda:0。
-默认解释器为 /home/dingzirong/miniconda3/envs/idp3/bin/python；也可用 --python 指定其他已安装依赖的解释器。
+默认解释器为 PATH 中的 `python`；也可用 `PYTHON_BIN` 或 `--python` 指定其他已安装依赖的解释器。
 
 按最新要求，主 YAML 和训练入口均默认 logging.mode=online，日志上传到 WandB 的 g1_dex3_rgb 项目。
 在训练终端先完成 wandb login，并保持网络可用；已登录的终端无需重复登录。
@@ -102,7 +104,19 @@ python tools/check_g1_dex3_training.py --device cpu --overfit-steps 0
 
 这里 logging.mode=disabled 适合禁止本地 socket 的沙箱；正式入口默认使用 online 并上传日志。
 
-## 本步骤的编程逻辑
+## 当前正式训练状态
+
+四任务正式训练已完成，末轮日志均为 epoch300，latest 保存计数为 epoch301，正式 EMA 已完成离线回放，详见 [OFFLINE_REPORT.md](../../deploy/OFFLINE_REPORT.md)。默认 right_pick 与部署配置统一读取 `../tsingtec_training_data/right_pick`。
+
+其他任务复用同一入口，例如从内层训练代码根目录运行：
+
+```bash
+bash tools/train_g1_dex3_rgb.sh --zarr ../tsingtec_training_data/right_place --gpu 0 --output-dir data/outputs/g1_dex3_rgb/right_place_seed42 -- task.name=right_place exp_name=g1_dex3_right_place_rgb 'logging.tags=[g1-d,dex3,right_place,rgb,r3m]'
+```
+
+stack 和 right_to_left_handover_low 分别替换上述数据路径、输出目录、task.name、exp_name 和 tags。已有输出目录会拒绝覆盖。从头训练需要本仓库 R3M、预训练初始化缓存及训练依赖，与部署直接恢复正式 EMA 的无缓存加载路径不同。
+
+## 本步骤的编程逻辑（历史实施记录）
 
 启动脚本只负责“定位项目 → 拼接 Hydra 参数 → 交给原 train.py”，不复制训练循环。
 28 维直接沿用 Zarr 的 left_arm[7]、right_arm[7]、left_ee[7]、right_ee[7] 顺序。
@@ -119,7 +133,7 @@ loss 前向 hook 核对 U-Net 实际收到和输出 [2,16,28]，确保完整 16 
 
 本步未修改既有源文件或作者 GR1 启动脚本。检查权重、短程运行与正式训练输出目录互相独立。
 
-## 实际检查结果
+## 历史短程检查结果（7 个检查 checkpoint 已于 2026-10-22 清理）
 
 2026-10-21 已通过：
 
@@ -131,12 +145,12 @@ loss 前向 hook 核对 U-Net 实际收到和输出 [2,16,28]，确保完整 16 
 - BatchNorm 统计量固定、normalizer 保持一致；随机增强与 15 步动作切片均保留。
 - 全新 workspace 重载后，两份模型全部 state_dict、normalizer、optimizer 完全一致；
   固定种子的完整预测和动作切片最大绝对差都为 0。
-- 此前 GPU 入口在 offline 模式下完成 2 个 epoch、每轮 1 个 batch，产生本地 WandB 文件、训练日志和最终 checkpoint。随后按最新要求将入口默认改为 online，已核对最终组合配置；尚未运行 online 训练。
+- 此前 GPU 入口在 offline 模式下完成 2 个 epoch、每轮 1 个 batch，产生本地 WandB 文件、训练日志和最终 checkpoint。随后按要求将默认日志改为 online；此段为当时检查快照，后续四任务正式 online 训练已完成。
 - 跨工作目录调用、含空格路径、GPU 选择、seed、解释器、额外 Hydra 参数及已有目录拒绝覆盖均已核对。
 
 完整拟合报告：data/g1_dex3_training_check/2026.10.21-16.03.24.704375/check_result.json。
-对应检查权重和实际配置在同目录 checkpoints/latest.ckpt、resolved_config.yaml。
+历史检查权重原在同目录 checkpoints/latest.ckpt（已清理），实际配置 resolved_config.yaml 和检查报告保留。
 GPU 入口短程检查目录：data/g1_dex3_entry_gpu_offline_check/。
 
 这些结果仅说明离线训练链路正常和少量训练序列可以拟合，仍有动作误差，
-不代表已完成正式训练、收敛验证或真机成功率评估。
+不代表独立泛化或真机成功率评估；四任务正式训练现已完成，见上方当前状态。

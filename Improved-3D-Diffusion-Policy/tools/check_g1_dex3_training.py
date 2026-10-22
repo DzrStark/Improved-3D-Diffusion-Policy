@@ -15,7 +15,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 def parse_args():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--zarr', type=Path, default=PROJECT_ROOT / 'data/dex3_pick_right_rgb.zarr')
+    parser.add_argument('--zarr', type=Path, default=PROJECT_ROOT.parent / 'tsingtec_training_data/right_pick')
     parser.add_argument('--device', default='cpu', help='cpu or cuda:0; no automatic fallback')
     parser.add_argument('--seed', type=int, default=42)
     parser.add_argument('--overfit-steps', type=int, default=1000, help='Fresh-noise updates on 2 sequences; 0 skips fitting')

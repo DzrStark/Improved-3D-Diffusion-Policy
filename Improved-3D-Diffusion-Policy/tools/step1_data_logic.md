@@ -20,8 +20,8 @@
 从工作区根目录运行：
 
 ```bash
-/home/dingzirong/miniconda3/envs/idp3/bin/python \
-  tsingtec_raw_data/tools/convert_all_unitree_to_zarr.py
+python \
+  Improved-3D-Diffusion-Policy/tools/convert_all_unitree_to_zarr.py
 ```
 
 批量入口复用原转换器，并对每组自动执行独立复核：所有 state/action 与源 JSON 转 float32 后
@@ -34,16 +34,16 @@
 输出已存在时仍拒绝覆盖。单独复核任意一组可运行：
 
 ```bash
-/home/dingzirong/miniconda3/envs/idp3/bin/python \
-  tsingtec_raw_data/tools/check_unitree_zarr.py \
+python \
+  Improved-3D-Diffusion-Policy/tools/check_unitree_zarr.py \
   --raw-dir tsingtec_raw_data/dex3_pick/left \
   --zarr tsingtec_training_data/left_pick --all-images
 ```
 
-以下为最初仅转换 right pick 的记录。
+以下为最初仅转换 right pick 的历史记录；当前数据统一保存在外层仓库的 tsingtec_training_data/。
 
 只实现 goal.md 的第 1 步，不修改 Dataset、训练配置或模型。
-转换器位于项目根目录相邻的 ../tsingtec_raw_data/tools/convert_unitree_to_zarr.py；
+转换器现位于内层训练代码的 tools/convert_unitree_to_zarr.py；
 核对脚本为本目录的 check_unitree_zarr.py。
 
 ## 28 维如何保证顺序
@@ -96,20 +96,20 @@ states 是实际角度，actions 是绝对目标角，单位 rad。两者取同�
 
 ## 运行
 
-从项目根目录执行，使用已安装依赖的 idp3 环境：
+从内层训练代码根目录执行，使用已安装依赖的 Python 环境：
 
-    /home/dingzirong/miniconda3/envs/idp3/bin/python \
-      ../tsingtec_raw_data/tools/convert_unitree_to_zarr.py \
+    python \
+      tools/convert_unitree_to_zarr.py \
       --raw-dir ../tsingtec_raw_data/dex3_pick/right \
-      --output data/dex3_pick_right_rgb.zarr
+      --output ../tsingtec_training_data/right_pick
 
-    /home/dingzirong/miniconda3/envs/idp3/bin/python tools/check_unitree_zarr.py
+    python tools/check_unitree_zarr.py
 
 ## 实际转换结果
 
 2026-10-21 已完成：
 
-- 输出：data/dex3_pick_right_rgb.zarr，约 707 MiB。
+- 历史输出：data/dex3_pick_right_rgb.zarr，约 707 MiB；当前默认输出为 ../tsingtec_training_data/right_pick。
 - img：(10344,224,224,3)，uint8；state/action 均为 (10344,28)，float32。
 - episode_ends：(60,)，int64；严格递增，最后一项 10344。
 - 全部 10,344 帧的 state/action 与源 JSON 转 float32 后逐项完全一致，所有 JSON 哈希一致。
@@ -118,5 +118,5 @@ states 是实际角度，actions 是绝对目标角，单位 rad。两者取同�
 - 保留并报告 episode_0004/idx=123 的 110.013973 ms 和 episode_0019/idx=114 的 127.181594 ms 间隔。
 - 现有 ReplayBuffer 可直接打开，读得 60 episodes、10,344 steps；转换器 SHA256 与报告一致。
 
-完整 episode 清单和切片等元信息见 data/dex3_pick_right_rgb.zarr/conversion_report.json。
-数据目录被原有 .gitignore 忽略；转换器位于项目外的指定原始数据工具目录，均不会出现在本项目 git diff 中。
+完整 episode 清单和切片等元信息见所选 Zarr 目录内的 conversion_report.json。
+数据目录被原有 .gitignore 忽略；转换器、批量入口及复核脚本位于受 Git 跟踪的 tools/ 目录。

@@ -34,14 +34,14 @@ training.resume=false，日志也不续接旧运行，checkpoint.save_ckpt=true�
 
 先检查组合结果，不启动训练、不连接 WandB：
 
-    /home/dingzirong/miniconda3/envs/idp3/bin/python train.py --config-name=dp_g1_dex3_rgb --cfg job --resolve
+    python train.py --config-name=dp_g1_dex3_rgb --cfg job --resolve
 
 数据路径、GPU、seed 等仍可使用原 Hydra 命令行覆盖。
 完成第 3–4 步的检查前，本步不启动正式训练。
 
 复核全部数据、窗口、归一化和实际策略构建（不启动训练、不连接 WandB）：
 
-    /home/dingzirong/miniconda3/envs/idp3/bin/python tools/check_g1_dex3_config.py
+    python tools/check_g1_dex3_config.py
 
 ## 实际核对结果
 

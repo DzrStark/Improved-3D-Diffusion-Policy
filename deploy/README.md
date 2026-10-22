@@ -1,5 +1,7 @@
 # G1-D + 双 Dex3：RGB Diffusion Policy 离线部署
 
+全新克隆先阅读 [REPRODUCING.md](../REPRODUCING.md)：G1-D 数据和正式权重需另行获取。下列命令使用已安装依赖的 Python 环境；完整 verify 还需要已有 R3M 缓存和对应 URDF。
+
 本目录已实现并用四个任务的正式 `latest.ckpt` 和真实数据跑通离线推理。完整核对优先使用 right_pick。**没有连接机器人、相机服务或 DDS，没有发布电机命令。** 未修改训练算法、原始数据、正式权重或外部参考目录。
 
 ## 运行
@@ -7,7 +9,7 @@
 从项目根目录运行（即包含 `deploy/`、`tsingtec_training_data/` 的目录）：
 
 ```bash
-PY=/home/dingzirong/miniconda3/envs/idp3/bin/python
+PY=python
 $PY -m deploy.replay --config deploy/configs/right_pick.json \
   --output deploy/reports/my_right_pick --episodes 0,1,59 --max-frames 32
 
@@ -17,7 +19,7 @@ $PY -m deploy.replay --config deploy/configs/right_pick.json --source raw \
 
 $PY -m unittest discover -s deploy/tests -v
 $PY -m deploy.verify --config deploy/configs/right_pick.json \
-  --urdf ../g1_d_description/g1_d.urdf --output deploy/reports/my_verification
+  --urdf /path/to/g1_d.urdf --output deploy/reports/my_verification
 ```
 
 输出目录必须不存在。`--max-frames 0` 回放选定 episode 全长，`--episodes` 是按原始数字编号排序后的 **零基 episode 索引**，例如 right_pick 的索引 0 是 episode_0001。其他三任务只替换配置文件：`right_place.json`、`stack.json`、`right_to_left_handover_low.json`。`--device cuda:0` 显式选择可用设备，不自动回退 CPU。
@@ -25,6 +27,10 @@ $PY -m deploy.verify --config deploy/configs/right_pick.json \
 四份配置的路径均相对 `path_base` 解析；默认是项目根目录，迁移只需修改配置。checkpoint 和数据必须显式给出，加载器不会扫描目录选“最新”。原训练主干不需要部署启动脚本、Vision Pro、遥操或 FK/IK。完整迁移说明见 [MIGRATION.md](MIGRATION.md)。
 
 当前idp3的实际版本、安装/打包方法和真机依赖缺口见 [IDP3_ENVIRONMENT.md](IDP3_ENVIRONMENT.md)，新建部署环境配置为 [environment-idp3.yml](environment-idp3.yml)。
+
+四份默认配置中的 `raw_root` 均已填写，所以默认 Zarr 回放也需要原始 JSON。只有 Zarr 时可将 `raw_root` 设为 `null`，此时使用名义 30 Hz，不能声称复现原始采样时间。`verify.py` 的完整数据检查针对 right_pick；其他任务已做回放，但未完成相同范围的全量核对。
+
+本开发机 URDF 现位于 `../dynamimic-deploy/reference/assets/urdf/g1_d_description/g1_d.urdf`，哈希与历史报告一致；原 `../g1_d_description/` 已失效，其他主机需单独准备对应文件。
 
 ## 输入和恢复契约
 

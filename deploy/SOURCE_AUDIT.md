@@ -2,14 +2,16 @@
 
 以下路径以项目根目录或相邻 `../data_collection` 为基准。实际读取文件的 SHA-256 已保存在 [source_manifest.json](reports/source_manifest.json)。只静态阅读硬件源码，没有导入或实例化控制器。
 
+2026-10-22 路径更新：转换器已迁入训练代码 `tools/`；下表 URDF 及历史清单中的旧绝对路径保留作记录。当前 URDF 为 `../dynamimic-deploy/reference/assets/urdf/g1_d_description/g1_d.urdf`，SHA-256 仍为 `b03f950227c03ff0265477fb5a8dcdd21293e927f8513386a792fcc8bb387cfb`。
+
 | 资料 | 可复用的证据 | 本次边界 |
 | --- | --- | --- |
-| `Improved-3D-Diffusion-Policy/goal.md`、`tools/step2_config_logic.md`、`step3_ema_logic.md`、`train_g1_dex3_rgb.md` 及检查代码 | R3M、两帧、padding、EMA、28维、随机增强契约 | 文档里的“训练进行中”是历史快照；四个输出日志末尾均为 epoch300 |
+| `Improved-3D-Diffusion-Policy/goal.md`、`tools/step2_config_logic.md`、`step3_ema_logic.md`、`train_g1_dex3_rgb.md` 及检查代码 | R3M、两帧、padding、EMA、28维、随机增强契约 | 训练已完成；四个输出日志末尾均为 epoch300，当前状态见 goal.md 顶部 |
 | `.hydra/config.yaml`、checkpoint 的 `cfg` | 16/2/16、DDIM 10次推理、50训练时刻、ResNet18、增强、双臂双手维度 | checkpoint 内配置才是恢复依据；不启动 workspace、optimizer 或 WandB |
 | `diffusion_policy_3d/policy/diffusion_image_policy.py::predict_action` | 归一化、图像除255、HWC→CHW、原始16步、从索引1开始切片 | 保留实际15步行为；无增量积分和动作缩放 |
 | `dataset/gr1_dex_dataset_image.py`、`common/sampler.py` | NHWC float32、state identity、action limits、episode内首尾重复padding | 部署首帧重复一次，不将策略目标当反馈 |
 | `model/vision/timm_obs_encoder.py`、`third_party/r3m/r3m/models/models_r3m.py` | eval时仍走随机增强；R3M内部标准化 | 不添加第二遍图像标准化，不关闭增强 |
-| `tsingtec_raw_data/tools/convert_unitree_to_zarr.py` | `colors.color_1`，OpenCV BGR→RGB、完整视野 INTER_AREA 224×224 | raw 与 Zarr 两条读数路径分别处理；无裁切/PIL/JPEG重编码 |
+| `Improved-3D-Diffusion-Policy/tools/convert_unitree_to_zarr.py` | `colors.color_1`，OpenCV BGR→RGB、完整视野 INTER_AREA 224×224 | raw 与 Zarr 两条读数路径分别处理；无裁切/PIL/JPEG重编码 |
 | `../data_collection/run/scripts/teleop_dex3_capture.py` | Head BGR 右半写 color_1；`get_current_dual_arm_q` 和 hand_state 写 states；IK target 和 hand_action 写 actions | 只能确认现有采集代码语义；不能据此断言旧 episode 的硬件版本和零位 |
 | `run/scripts/dex3_capture_recording.py`、`teleop/utils/episode_writer.py` | writer在add_item入口记录monotonic/wall时间；原样保存states/actions；异步写图 | 时间戳不是相机曝光或编码器采样时间；资料明确缺少源传感器时间戳 |
 | `robot_control/robot_arm.py::G1_29_JointArmIndex` | 左臂15..21、右臂22..28；肩pitch/roll/yaw、肘、腕roll/pitch/yaw | 是G1_29源码候选映射，不是已验证G1-D电机映射 |

@@ -107,6 +107,8 @@ tar -xzf idp3-linux-x86_64.tar.gz -C /path/to/new-idp3
 
 如果还需要继续RGB训练，原workspace还会导入WandB、pandas和tqdm；当前环境已装wandb 0.24.2、pandas 2.0.3、tqdm 4.70.1。这些不属于部署运行的必需包，本YAML不承诺覆盖原项目全部3D/仿真训练分支。
 
+RGB 训练的补充依赖清单为 `Improved-3D-Diffusion-Policy/requirements-g1-rgb.txt`，并需安装本仓库 R3M 和训练源码，完整命令见 [REPRODUCING.md](../REPRODUCING.md)。
+
 ## 迁移后验收
 
 ```bash

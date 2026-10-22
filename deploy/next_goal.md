@@ -12,6 +12,8 @@
 
 机器人主机上的实际目录和解释器可能不同，请现场定位，不把原机绝对路径写进新代码。以下路径均相对项目根目录。
 
+2026-10-22 路径更新：转换工具位于 `Improved-3D-Diffusion-Policy/tools/`；原开发机 URDF 已移至 `../dynamimic-deploy/reference/assets/urdf/g1_d_description/g1_d.urdf`，哈希与旧报告一致。`CODING_AGENT_PROMPT.md` 和 `reports/` 中绝对路径保留为历史记录；复现先按仓库根目录的 `REPRODUCING.md` 准备单独提供的数据、权重、URDF 和外部参考。
+
 先阅读并结合实际代码核对：
 
 1. `deploy/PROGRESS.md`：独立进度与不能丢失的发现。
@@ -20,7 +22,7 @@
 4. `deploy/OFFLINE_REPORT.md` 和 `deploy/reports/right_pick_verification_final/result.json`。
 5. `deploy/g1dp/`、`deploy/replay.py`、`deploy/verify.py`、`deploy/tests/`。
 6. `deploy/configs/right_pick.json`、`hardware_review.template.json`。
-7. 训练目录 `Improved-3D-Diffusion-Policy/goal.md` 及相关policy、Dataset、encoder代码；其中“训练进行中”属于历史状态，四个任务已产出正式权重。
+7. 训练目录 `Improved-3D-Diffusion-Policy/goal.md` 及相关policy、Dataset、encoder代码；四个正式任务已训练完成，goal 文件记录了当前状态和相对路径。
 8. `deploy/IDP3_ENVIRONMENT.md`、`environment-idp3.yml`：当前环境版本、迁移操作和未安装的真机依赖。
 
 检查仓库状态，保留用户已有修改。默认只修改本项目 `deploy/`；外部数采、SDK参考和URDF优先只读。确实必须改外部文件时，先说明原因，优先在部署侧封装或提供可审阅补丁。

@@ -17,7 +17,7 @@ shape_meta:
 
 dataset:
   _target_: diffusion_policy_3d.dataset.gr1_dex_dataset_image.GR1DexDatasetImage
-  zarr_path: data/dex3_pick_right_rgb.zarr
+  zarr_path: ../tsingtec_training_data/right_pick
   horizon: ${horizon}
   pad_before: ${eval:'${n_obs_steps}-1'}
   pad_after: ${eval:'${n_action_steps}-1'}

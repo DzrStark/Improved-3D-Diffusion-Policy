@@ -4,6 +4,10 @@
 
 ## 已实现
 
+本次迁移复现的实测范围和剩余条件见 [REPRODUCTION_AUDIT.md](REPRODUCTION_AUDIT.md)。
+
+2026-10-22 发布前复现检查补充：转换工具已移入受 Git 跟踪的训练 `tools/`，verify 已跟随新路径；训练、转换及核对的默认数据位置统一为 `tsingtec_training_data/right_pick`，训练入口改用当前环境解释器。`goal.md` 更新当前状态并取消忽略。复制数据后核对器允许源根目录变化，仍逐条检查 JSON 哈希及数据内容。全新克隆说明见 `../REPRODUCING.md`。以上是首次离线交付之后的补充，不改变正式权重和原始/转换数据。
+
 - `g1dp/policy.py`：显式checkpoint+训练源码路径，恢复原policy配置，严格恢复正式EMA/normalizer，拒绝缺失或不匹配，CPU/指定CUDA设备，不依赖训练目录隐式扫描或R3M预训练缓存下载。
 - `observations.py` / `sources.py`：raw JSON/JPEG及Zarr输入、RGB处理、28维实测组装、两帧旧→新历史和首帧padding、episode复位、转换源JSON哈希和原始时间恢复。
 - `replay.py`：真实离线观测回放和目标JSONL、原16步/切片15步、时间/延迟/实际状态、配置/命令/哈希/分组误差记录。数据反馈外生，不是物理模拟。

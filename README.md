@@ -1,5 +1,12 @@
 # [Generalizable Humanoid Manipulation with 3D Diffusion Policies](https://humanoid-manipulation.github.io/)
 
+## 本分支：G1-D + 双 Dex3 RGB
+
+从全新克隆开始，请先阅读 [G1-D 复现说明](REPRODUCING.md) 和
+[训练目标与当前状态](Improved-3D-Diffusion-Policy/goal.md)。
+转换工具位于 `Improved-3D-Diffusion-Policy/tools/`，离线回放入口见 [deploy/README.md](deploy/README.md)。
+G1-D 数据和正式权重需要另行获取；下文保留的上游 GR1 数据链接和脚本不适用于本分支的 G1-D 复现。
+
 Our project is **fully open-sourced**. We separate them into two repos: [Learning & Deployment of iDP3](https://github.com/YanjieZe/Improved-3D-Diffusion-Policy) and [Humanoid Teleoperation](https://github.com/YanjieZe/Humanoid-Teleoperation). This repo is for training and deployment of iDP3.
 
 

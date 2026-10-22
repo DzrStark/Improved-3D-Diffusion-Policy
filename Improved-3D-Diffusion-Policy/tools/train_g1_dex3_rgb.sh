@@ -3,9 +3,9 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
-TRAIN_PYTHON="${PYTHON_BIN:-/home/dingzirong/miniconda3/envs/idp3/bin/python}"
+TRAIN_PYTHON="${PYTHON_BIN:-python}"
 
-ZARR_PATH="data/dex3_pick_right_rgb.zarr"
+ZARR_PATH="../tsingtec_training_data/right_pick"
 GPU=0
 SEED=42
 OUTPUT_DIR=""
@@ -15,11 +15,11 @@ usage() {
 Usage: tools/train_g1_dex3_rgb.sh [options]
 
 Options:
-  --zarr PATH        Training Zarr (default: data/dex3_pick_right_rgb.zarr)
+  --zarr PATH        Training Zarr (default: ../tsingtec_training_data/right_pick)
   --gpu INDEX        CUDA device index (default: 0)
   --seed INTEGER     Random seed (default: 42)
   --output-dir PATH  Run directory (default: unique path under data/outputs/g1_dex3_rgb)
-  --python PATH      Python interpreter (default: idp3 environment)
+  --python PATH      Python interpreter (default: PYTHON_BIN or python on PATH)
   -h, --help         Show this help
 
 Run from any directory; relative paths are resolved from the project root.

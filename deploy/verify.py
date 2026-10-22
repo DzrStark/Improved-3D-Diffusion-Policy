@@ -54,7 +54,7 @@ def main():
     (args.output / "checkpoint_config.yaml").write_text(OmegaConf.to_yaml(policy.cfg, resolve=False))
     (args.output / "policy_config.json").write_text(json.dumps(policy.policy_config, indent=2))
     # Directly invoke the actual converter, independently of deploy preprocessing.
-    converter_path = Path(cfg["training_root"]).parent / "tsingtec_raw_data/tools/convert_unitree_to_zarr.py"
+    converter_path = Path(cfg["training_root"]) / "tools/convert_unitree_to_zarr.py"
     spec = importlib.util.spec_from_file_location("original_converter", converter_path)
     converter = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(converter)
