@@ -1,0 +1,41 @@
+Loaded R3M model using r3m. pretrained=True
+rgb keys:          ['image']
+low_dim_keys keys: ['agent_pos']
+use_depth: False, use_depth_only: False
+----------------------------------
+Class name: DiffusionImagePolicy
+  Number of parameters: 89.6870M
+   _dummy_variable: 0.0000M (0.00%)
+   obs_encoder: 11.1765M (12.46%)
+   model: 78.5105M (87.54%)
+   mask_generator: 0.0000M (0.00%)
+----------------------------------
+Real data and preprocessing checked
+Loaded R3M model using r3m. pretrained=True
+rgb keys:          ['image']
+low_dim_keys keys: ['agent_pos']
+use_depth: False, use_depth_only: False
+----------------------------------
+Class name: DiffusionImagePolicy
+  Number of parameters: 89.6870M
+   _dummy_variable: 0.0000M (0.00%)
+   obs_encoder: 11.1765M (12.46%)
+   model: 78.5105M (87.54%)
+   mask_generator: 0.0000M (0.00%)
+----------------------------------
+Original pretrained policy comparison passed
+/home/dingzirong/miniconda3/envs/idp3/lib/python3.8/site-packages/torch/nn/_reduction.py:42: UserWarning: size_average and reduce args will be deprecated, please use reduction='none' instead.
+  warnings.warn(warning.format(ret))
+/home/dingzirong/miniconda3/envs/idp3/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/dingzirong/miniconda3/envs/idp3/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=None`.
+  warnings.warn(msg)
+/home/dingzirong/miniconda3/envs/idp3/lib/python3.8/site-packages/torch/cuda/__init__.py:611: UserWarning: Can't initialize NVML
+  warnings.warn("Can't initialize NVML")
+/home/dingzirong/miniconda3/envs/idp3/lib/python3.8/site-packages/torch/nn/_reduction.py:42: UserWarning: size_average and reduce args will be deprecated, please use reduction='none' instead.
+  warnings.warn(warning.format(ret))
+/home/dingzirong/miniconda3/envs/idp3/lib/python3.8/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/dingzirong/miniconda3/envs/idp3/lib/python3.8/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=None`.
+  warnings.warn(msg)
+{"passed": true, "sampler": {"all_windows_within_episode": 10404, "startup_padding": "[first,first] matches pad_before=1", "edge_history_checks": 6, "order": "oldest_to_newest"}, "original_policy_comparison": {"max_abs_diff": {"action": 0.0, "action_pred": 0.0}, "action_shape": [15, 28], "full_shape": [16, 28], "continuing_rng_max_action_change": 0.050336480140686035, "reference_r3m_cache_sha256": "b4dd6f407416889b864c70af974f416daacae0dd360334b5045861120ae336d2", "single_inference_s": 0.17268345598131418}, "limits": {"action_violations": 38791, "state_violations": 0, "hardware_verified": false}}

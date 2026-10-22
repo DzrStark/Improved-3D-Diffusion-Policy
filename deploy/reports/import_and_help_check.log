@@ -1,0 +1,30 @@
+usage: replay.py [-h] --config CONFIG --output OUTPUT [--device DEVICE]
+                 [--source {zarr,raw}] [--episodes EPISODES]
+                 [--max-frames MAX_FRAMES] [--execute-steps EXECUTE_STEPS]
+
+Offline real-data replay and target recording; never opens camera or DDS.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --config CONFIG
+  --output OUTPUT       New output directory
+  --device DEVICE       cpu or cuda:N, no fallback
+  --source {zarr,raw}
+  --episodes EPISODES   Zero-based comma-separated episode indices
+  --max-frames MAX_FRAMES
+                        Per episode; 0 means entire episode
+  --execute-steps EXECUTE_STEPS
+                        Replan after 1..15 steps
+
+usage: verify.py [-h] --config CONFIG --output OUTPUT --urdf URDF
+
+Verify formal EMA, original inference, real preprocessing and dataset
+boundaries.
+
+optional arguments:
+  -h, --help       show this help message and exit
+  --config CONFIG
+  --output OUTPUT
+  --urdf URDF
+
+PASS: No SDK, camera, teleop, or WandB import or construction

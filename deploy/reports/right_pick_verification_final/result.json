@@ -1,0 +1,383 @@
+{
+  "command": [
+    "/home/dingzirong/miniconda3/envs/idp3/bin/python",
+    "-m",
+    "deploy.verify",
+    "--config",
+    "deploy/configs/right_pick.json",
+    "--urdf",
+    "../g1_d_description/g1_d.urdf",
+    "--output",
+    "deploy/reports/right_pick_verification_final"
+  ],
+  "config": {
+    "task": "right_pick",
+    "training_root": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/Improved-3D-Diffusion-Policy",
+    "checkpoint": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/Improved-3D-Diffusion-Policy/data/outputs/g1_dex3_rgb/2026.10.21-16.25.46_gpu4_seed42/checkpoints/latest.ckpt",
+    "source": "zarr",
+    "zarr": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/tsingtec_training_data/right_pick",
+    "raw_root": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/tsingtec_raw_data/dex3_pick/right",
+    "device": "cpu",
+    "threads": 4,
+    "seed": 42,
+    "target_hz": 30,
+    "execute_steps": 4,
+    "max_lateness_s": 0.05
+  },
+  "checkpoint": {
+    "checkpoint": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/Improved-3D-Diffusion-Policy/data/outputs/g1_dex3_rgb/2026.10.21-16.25.46_gpu4_seed42/checkpoints/latest.ckpt",
+    "sha256": "f5d52bf2431bf7df5b0e7b03f6936f6578af176c68f664d99c23a75a38d75b05",
+    "weights": "ema_model",
+    "tensor_count": 289,
+    "epoch": 301,
+    "global_step": 98126,
+    "device": "cpu",
+    "threads": 4,
+    "augmentation": [
+      {
+        "type": "RandomCrop",
+        "ratio": 0.95
+      },
+      {
+        "_target_": "torchvision.transforms.RandomRotation",
+        "degrees": [
+          -5.0,
+          5.0
+        ],
+        "expand": false
+      },
+      {
+        "_target_": "torchvision.transforms.ColorJitter",
+        "brightness": 0.3,
+        "contrast": 0.4,
+        "saturation": 0.5,
+        "hue": 0.08
+      }
+    ],
+    "normalizer": "checkpoint action limits; identity state/image"
+  },
+  "environment": {
+    "python": "3.8.20 (default, Oct  3 2024, 15:24:27) \n[GCC 11.2.0]",
+    "platform": "Linux-5.15.0-115-generic-x86_64-with-glibc2.17",
+    "cuda_available": false,
+    "cuda_count": 0,
+    "versions": {
+      "torch": "2.1.0",
+      "torchvision": "0.16.0",
+      "numpy": "1.23.5",
+      "opencv-python": "4.5.3.56",
+      "zarr": "2.12.0",
+      "numcodecs": "0.12.1",
+      "hydra-core": "1.2.0",
+      "omegaconf": "2.3.1",
+      "diffusers": "0.11.1",
+      "timm": "0.9.7",
+      "dill": "0.3.5.1",
+      "r3m": "0.0.0",
+      "einops": "0.4.1",
+      "transformers": null
+    }
+  },
+  "data_checks": {
+    "episodes": 60,
+    "frames": 10344,
+    "all_raw_state_action_exact": true,
+    "exact_rgb_samples": 180,
+    "empty_joint_names_episodes": 60,
+    "hand_coordinate_metadata": {
+      "null": 60
+    },
+    "timestamp_gaps_over_100ms": [
+      {
+        "episode": "episode_0004",
+        "index": 123,
+        "dt_s": 0.110013973
+      },
+      {
+        "episode": "episode_0019",
+        "index": 114,
+        "dt_s": 0.127181594
+      }
+    ]
+  },
+  "sampler": {
+    "all_windows_within_episode": 10404,
+    "startup_padding": "[first,first] matches pad_before=1",
+    "edge_history_checks": 6,
+    "order": "oldest_to_newest"
+  },
+  "original_policy_comparison": {
+    "max_abs_diff": {
+      "action": 0.0,
+      "action_pred": 0.0
+    },
+    "action_shape": [
+      15,
+      28
+    ],
+    "full_shape": [
+      16,
+      28
+    ],
+    "continuing_rng_max_action_change": 0.050336480140686035,
+    "reference_r3m_cache_sha256": "b4dd6f407416889b864c70af974f416daacae0dd360334b5045861120ae336d2",
+    "single_inference_s": 0.17268345598131418
+  },
+  "aligned_15_step_error": {
+    "episode_index": 0,
+    "newest_observation_index": 40,
+    "demonstration_indices": [
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54
+    ],
+    "mae_rad": 0.003339442191645503,
+    "rmse_rad": 0.007669362239539623,
+    "group_mae_rad": {
+      "left_arm": 0.0008842494571581483,
+      "right_arm": 0.0029736703727394342,
+      "left_ee": 0.0008473218185827136,
+      "right_ee": 0.008652527816593647
+    },
+    "max_adjacent_prediction_jump_rad": 0.14149922132492065
+  },
+  "normalizer": {
+    "params_dict.action.offset": [
+      -1.321744680404663,
+      -2.8413901329040527,
+      -1.6042490005493164,
+      3.0158982276916504,
+      -1.6614470481872559,
+      -0.17507755756378174,
+      1.2650456428527832,
+      0.38560616970062256,
+      1.2502045631408691,
+      -0.13411414623260498,
+      -0.08718132972717285,
+      0.9574315547943115,
+      0.15637147426605225,
+      -0.7969932556152344,
+      1.4634318351745605,
+      -1.5129748582839966,
+      -0.9994434714317322,
+      0.9827877283096313,
+      0.996618390083313,
+      0.9345942735671997,
+      0.9968113899230957,
+      0.43436920642852783,
+      2.400441884994507,
+      0.9993531703948975,
+      -0.9977858066558838,
+      -0.9988554120063782,
+      -0.997081458568573,
+      -0.998836874961853
+    ],
+    "params_dict.action.scale": [
+      4.375382423400879,
+      5.470930576324463,
+      7.110286235809326,
+      3.8488593101501465,
+      4.0619940757751465,
+      2.544529676437378,
+      2.7890806198120117,
+      1.259861946105957,
+      2.128208637237549,
+      1.4746094942092896,
+      1.273287296295166,
+      2.107438802719116,
+      1.356245756149292,
+      1.634965419769287,
+      2.489896774291992,
+      2.7575602531433105,
+      2.0441434383392334,
+      17.21212387084961,
+      3.3816089630126953,
+      65.40570831298828,
+      3.1886885166168213,
+      1.3684149980545044,
+      3.6921193599700928,
+      1.7855085134506226,
+      2.2141671180725098,
+      1.1446038484573364,
+      2.9185192584991455,
+      1.1631293296813965
+    ],
+    "params_dict.action.input_stats.max": [
+      0.5306380987167358,
+      0.7021456360816956,
+      0.3662649989128113,
+      -0.5237650871276855,
+      0.6552069783210754,
+      0.46180546283721924,
+      -0.09502969682216644,
+      0.4876675307750702,
+      -0.1175658330321312,
+      0.7690945863723755,
+      0.8538380861282349,
+      0.0201991256326437,
+      0.6220321655273438,
+      1.0991016626358032,
+      -0.18612489104270935,
+      0.911303699016571,
+      0.9781326651573181,
+      0.0010000000474974513,
+      0.0010000000474974513,
+      0.0010000000474974513,
+      0.0010000000474974513,
+      0.41334739327430725,
+      -0.37930572032928467,
+      0.0003622632648330182,
+      0.9022741913795471,
+      1.7463293075561523,
+      0.6842790246009827,
+      1.7184991836547852
+    ],
+    "params_dict.action.input_stats.mean": [
+      0.22781379520893097,
+      0.5327451229095459,
+      0.2282407134771347,
+      -0.815041184425354,
+      0.40959858894348145,
+      0.13427643477916718,
+      -0.4563491940498352,
+      -0.43489256501197815,
+      -0.5884519219398499,
+      0.22190088033676147,
+      0.0055397879332304,
+      -0.617521345615387,
+      0.13224127888679504,
+      0.5823761820793152,
+      -0.6532953977584839,
+      0.5663155913352966,
+      0.38443952798843384,
+      -9.185425733448938e-05,
+      -0.08756909519433975,
+      0.0008294381550513208,
+      -0.05210011452436447,
+      -0.5425659418106079,
+      -0.8613470196723938,
+      -0.258103609085083,
+      0.37602123618125916,
+      0.7472659945487976,
+      0.22994209825992584,
+      0.5219732522964478
+    ],
+    "params_dict.action.input_stats.min": [
+      0.07353521138429642,
+      0.3365771174430847,
+      0.08498236536979675,
+      -1.0433995723724365,
+      0.16283799707889557,
+      -0.32419446110725403,
+      -0.8121119141578674,
+      -1.0998079776763916,
+      -1.0573233366012573,
+      -0.5871967077255249,
+      -0.7168992161750793,
+      -0.9288201332092285,
+      -0.8526268005371094,
+      -0.12416575849056244,
+      -0.9893710613250732,
+      0.18602488934993744,
+      -0.00027224892983213067,
+      -0.11519715934991837,
+      -0.5904344320297241,
+      -0.029578370973467827,
+      -0.6262171268463135,
+      -1.0481975078582764,
+      -0.9210000038146973,
+      -1.1197668313980103,
+      -0.0010000000474974513,
+      -0.0010000000474974513,
+      -0.0010000000474974513,
+      -0.0010000000474974513
+    ],
+    "params_dict.action.input_stats.std": [
+      0.06831853836774826,
+      0.06812632083892822,
+      0.050491813570261,
+      0.09890225529670715,
+      0.09825225919485092,
+      0.1570338010787964,
+      0.104815773665905,
+      0.3647986054420471,
+      0.2266940176486969,
+      0.3496786952018738,
+      0.29364192485809326,
+      0.16967493295669556,
+      0.2567847967147827,
+      0.2255626916885376,
+      0.18392682075500488,
+      0.15912075340747833,
+      0.25616833567619324,
+      0.00649981340393424,
+      0.12297315895557404,
+      0.0011973498621955514,
+      0.11235848069190979,
+      0.4124971032142639,
+      0.10663522779941559,
+      0.24568495154380798,
+      0.24346385896205902,
+      0.7483972907066345,
+      0.2136898636817932,
+      0.6275247931480408
+    ],
+    "params_dict.image.offset": [
+      0.0
+    ],
+    "params_dict.image.scale": [
+      1.0
+    ],
+    "params_dict.image.input_stats.max": [
+      1.0
+    ],
+    "params_dict.image.input_stats.mean": [
+      0.0
+    ],
+    "params_dict.image.input_stats.min": [
+      -1.0
+    ],
+    "params_dict.image.input_stats.std": [
+      1.0
+    ],
+    "params_dict.agent_pos.offset": [
+      0.0
+    ],
+    "params_dict.agent_pos.scale": [
+      1.0
+    ],
+    "params_dict.agent_pos.input_stats.max": [
+      1.0
+    ],
+    "params_dict.agent_pos.input_stats.mean": [
+      0.0
+    ],
+    "params_dict.agent_pos.input_stats.min": [
+      -1.0
+    ],
+    "params_dict.agent_pos.input_stats.std": [
+      1.0
+    ]
+  },
+  "invalid_weights_rejected": true,
+  "limits": {
+    "action_violations": 38791,
+    "state_violations": 0,
+    "hardware_verified": false
+  },
+  "passed": true,
+  "scope": "Formal training checkpoint, training demonstrations, CPU offline. No hardware, dynamics, closed loop, generalization, or image-use claim.",
+  "cwd": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy"
+}

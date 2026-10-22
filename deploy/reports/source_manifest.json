@@ -1,0 +1,85 @@
+{
+  "created_at": "2026-10-22T06:22:03.121808+00:00",
+  "files": [
+    {
+      "path": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/Improved-3D-Diffusion-Policy/goal.md",
+      "sha256": "b7c35c131178a76a8c8d19e5e693fd499e9d12aa4123566d0361363717476bc2"
+    },
+    {
+      "path": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/Improved-3D-Diffusion-Policy/diffusion_policy_3d/policy/diffusion_image_policy.py",
+      "sha256": "53c525566b35b8cbd8558a66e2ffd7459215dfd756950ec5c196df63a60f1bea"
+    },
+    {
+      "path": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/Improved-3D-Diffusion-Policy/diffusion_policy_3d/dataset/gr1_dex_dataset_image.py",
+      "sha256": "b1328cc0fa09bb2a8eb41586dee82cf7359937769b946afd3b2cc3891501cd09"
+    },
+    {
+      "path": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/Improved-3D-Diffusion-Policy/diffusion_policy_3d/model/vision/timm_obs_encoder.py",
+      "sha256": "da12c4b21b8c2362583327ba7a521740b4bc3efedf6d551492cbdd29a798865a"
+    },
+    {
+      "path": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/third_party/r3m/r3m/models/models_r3m.py",
+      "sha256": "d3c4e0906f40c7807206081e8012bde29c59d1c725636ba55f64bad263236ef3"
+    },
+    {
+      "path": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/tsingtec_raw_data/tools/convert_unitree_to_zarr.py",
+      "sha256": "43883acc7836349446052e29e68ce31263e133148a9da36a16b4dedda2da3999"
+    },
+    {
+      "path": "/home/dingzirong/workspace/g1_d_description/g1_d.urdf",
+      "sha256": "b03f950227c03ff0265477fb5a8dcdd21293e927f8513386a792fcc8bb387cfb"
+    },
+    {
+      "path": "/home/dingzirong/workspace/dynamimic-deploy/DEPLOYMENT.md",
+      "sha256": "72eb29aa51266a39eeeb6dbe7e95ffa1b4894c09afcca1fc1f13162b53513fc5"
+    },
+    {
+      "path": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/Improved-3D-Diffusion-Policy/deploy.py",
+      "sha256": "c7d7d26a09d766a4278968a58a5450d7400fcee73485a863a53823c77d745bc4"
+    },
+    {
+      "path": "/home/dingzirong/workspace/data_collection/run/scripts/teleop_dex3_capture.py",
+      "sha256": "c3232b03d1eaa9c15519d570e43a2286c8b68842751c77f2b89041ffffb6fa9a"
+    },
+    {
+      "path": "/home/dingzirong/workspace/data_collection/run/scripts/dex3_capture_recording.py",
+      "sha256": "ea8c2cb19af109a031fe6999832bc41ee0721abf4d2f6e02f63456238c528708"
+    },
+    {
+      "path": "/home/dingzirong/workspace/data_collection/run/scripts/evaluate_place_live.py",
+      "sha256": "682de599a947253767afe51eaccec2773c443a6e13cf03391fae5b72cfbf0cf1"
+    },
+    {
+      "path": "/home/dingzirong/workspace/data_collection/run/scripts/dex3_live_support.py",
+      "sha256": "42bb8240df8d66c5c7866543b01bbfb93a86b2fcf13a82075e34e56eaa0178f9"
+    },
+    {
+      "path": "/home/dingzirong/workspace/data_collection/docs/README_dex3_joint28_live_inference_zh.md",
+      "sha256": "1d5255dc3c36a2944a36d0dd3c19786b756063983a8fe114cfd74c0046e0a012"
+    },
+    {
+      "path": "/home/dingzirong/workspace/data_collection/docs/README_dex3_zero_offset_zh.md",
+      "sha256": "8c0734642b9942c8b6215b17e1c6183ac910027fa1dabdfe36af40649bad3600"
+    },
+    {
+      "path": "/home/dingzirong/workspace/data_collection/third_party/xr_teleoperate/teleop/robot_control/robot_arm.py",
+      "sha256": "978294754867ad3513432a0cfa9ec72f843ce6e90a4f58df106f5231113a1a24"
+    },
+    {
+      "path": "/home/dingzirong/workspace/data_collection/third_party/xr_teleoperate/teleop/robot_control/robot_arm_ik.py",
+      "sha256": "f395b3ef868ed3c854654b08b33f74ee73f57dbb7c0e8f20440a7f788115a085"
+    },
+    {
+      "path": "/home/dingzirong/workspace/data_collection/third_party/xr_teleoperate/teleop/robot_control/robot_hand_unitree.py",
+      "sha256": "4ee8bd44e9512fb29f20113728e1cf3eebd077652b8540e62f8fd11943cfc034"
+    },
+    {
+      "path": "/home/dingzirong/workspace/data_collection/third_party/xr_teleoperate/teleop/utils/episode_writer.py",
+      "sha256": "4bbd6c7f2885b02ab48be7e62938fd56ebbb28a26ae2760e6b4c25a9de4c5be1"
+    },
+    {
+      "path": "/home/dingzirong/workspace/data_collection/third_party/xr_teleoperate/teleop/teleimager/src/teleimager/image_client.py",
+      "sha256": "ac1404b48faa29573c3c8cf1a12db803f1291572d462088790093900d71ccafe"
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "command": [
+    "/home/dingzirong/miniconda3/envs/idp3/bin/python",
+    "-m",
+    "deploy.replay",
+    "--config",
+    "deploy/configs/right_to_left_handover_low.json",
+    "--output",
+    "deploy/reports/right_to_left_handover_low_replay",
+    "--episodes",
+    "0,59",
+    "--max-frames",
+    "12"
+  ],
+  "config": {
+    "task": "right_to_left_handover_low",
+    "training_root": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/Improved-3D-Diffusion-Policy",
+    "checkpoint": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/Improved-3D-Diffusion-Policy/data/outputs/g1_dex3_rgb/2026.10.21-16.36.38_right_to_left_handover_low_gpu5_seed42/checkpoints/latest.ckpt",
+    "source": "zarr",
+    "zarr": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/tsingtec_training_data/right_to_left_handover_low",
+    "raw_root": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/tsingtec_raw_data/dex3_handover/right_to_left_handover_low",
+    "device": "cpu",
+    "threads": 4,
+    "seed": 42,
+    "target_hz": 30,
+    "execute_steps": 4,
+    "max_lateness_s": 0.05
+  },
+  "checkpoint": {
+    "checkpoint": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/Improved-3D-Diffusion-Policy/data/outputs/g1_dex3_rgb/2026.10.21-16.36.38_right_to_left_handover_low_gpu5_seed42/checkpoints/latest.ckpt",
+    "sha256": "3de90da5d97f8246d45906edd277e7b492b574528e1743234ebc49c19222dae2",
+    "weights": "ema_model",
+    "tensor_count": 289,
+    "epoch": 301,
+    "global_step": 138460,
+    "device": "cpu",
+    "threads": 4,
+    "augmentation": [
+      {
+        "type": "RandomCrop",
+        "ratio": 0.95
+      },
+      {
+        "_target_": "torchvision.transforms.RandomRotation",
+        "degrees": [
+          -5.0,
+          5.0
+        ],
+        "expand": false
+      },
+      {
+        "_target_": "torchvision.transforms.ColorJitter",
+        "brightness": 0.3,
+        "contrast": 0.4,
+        "saturation": 0.5,
+        "hue": 0.08
+      }
+    ],
+    "normalizer": "checkpoint action limits; identity state/image"
+  },
+  "episodes": [
+    0,
+    59
+  ],
+  "max_frames_per_episode": 12,
+  "seed": 42,
+  "predictions": 6,
+  "recorded_targets": 19,
+  "expired_slots": 0,
+  "mae_rad": 0.002836924744769931,
+  "rmse_rad": 0.004195553250610828,
+  "group_mae_rad": {
+    "left_arm": 0.0024325980339199305,
+    "right_arm": 0.004720375407487154,
+    "left_ee": 0.00204813783057034,
+    "right_ee": 0.0021465884055942297
+  },
+  "max_consecutive_target_jump_rad": 0.0324132964015007,
+  "latency_s": {
+    "first": 0.16852689487859607,
+    "mean": 0.16713440627790987,
+    "p50": 0.1661323686130345,
+    "p95": 0.173849054495804,
+    "max": 0.17562310770154
+  },
+  "joint_names_source_candidate": [
+    "left_shoulder_pitch_joint",
+    "left_shoulder_roll_joint",
+    "left_shoulder_yaw_joint",
+    "left_elbow_joint",
+    "left_wrist_roll_joint",
+    "left_wrist_pitch_joint",
+    "left_wrist_yaw_joint",
+    "right_shoulder_pitch_joint",
+    "right_shoulder_roll_joint",
+    "right_shoulder_yaw_joint",
+    "right_elbow_joint",
+    "right_wrist_roll_joint",
+    "right_wrist_pitch_joint",
+    "right_wrist_yaw_joint",
+    "left_hand_thumb_0_joint",
+    "left_hand_thumb_1_joint",
+    "left_hand_thumb_2_joint",
+    "left_hand_middle_0_joint",
+    "left_hand_middle_1_joint",
+    "left_hand_index_0_joint",
+    "left_hand_index_1_joint",
+    "right_hand_thumb_0_joint",
+    "right_hand_thumb_1_joint",
+    "right_hand_thumb_2_joint",
+    "right_hand_index_0_joint",
+    "right_hand_index_1_joint",
+    "right_hand_middle_0_joint",
+    "right_hand_middle_1_joint"
+  ],
+  "time_semantics": "virtual recorded timestamps; inference cost excluded; no wall-clock pacing",
+  "limits": "raw predictions recorded; no physical targets sent or hardware limits assumed",
+  "scope": "training demonstrations; not a robot simulation, closed loop, or generalization test",
+  "cwd": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy"
+}

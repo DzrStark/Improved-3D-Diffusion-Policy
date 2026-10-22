@@ -1,0 +1,14 @@
+test_coordinate_adapter_and_no_implicit_zero_torque (test_execution.ExecutionTests) ... ok
+test_hand_message_no_publish (test_execution.ExecutionTests) ... ok
+test_history_start_order_episode (test_execution.ExecutionTests) ... ok
+test_queue_timing_pause_stop_and_expiration (test_execution.ExecutionTests) ... ok
+test_recording_sink_does_not_fake_feedback (test_execution.ExecutionTests) ... ok
+test_right_eye_bgr (test_execution.ExecutionTests) ... ok
+test_safety_limits_rate_stale_finite_and_reset (test_execution.ExecutionTests) ... ok
+test_session_rechecks_feedback_and_rejects_latency (test_execution.ExecutionTests) ... ok
+test_session_send_pause_and_exception_cleanup (test_execution.ExecutionTests) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.010s
+
+OK

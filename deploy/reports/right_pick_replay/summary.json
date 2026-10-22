@@ -1,0 +1,121 @@
+{
+  "command": [
+    "/home/dingzirong/miniconda3/envs/idp3/bin/python",
+    "-m",
+    "deploy.replay",
+    "--config",
+    "deploy/configs/right_pick.json",
+    "--output",
+    "deploy/reports/right_pick_replay",
+    "--episodes",
+    "0,1,59",
+    "--max-frames",
+    "32"
+  ],
+  "config": {
+    "task": "right_pick",
+    "training_root": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/Improved-3D-Diffusion-Policy",
+    "checkpoint": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/Improved-3D-Diffusion-Policy/data/outputs/g1_dex3_rgb/2026.10.21-16.25.46_gpu4_seed42/checkpoints/latest.ckpt",
+    "source": "zarr",
+    "zarr": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/tsingtec_training_data/right_pick",
+    "raw_root": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/tsingtec_raw_data/dex3_pick/right",
+    "device": "cpu",
+    "threads": 4,
+    "seed": 42,
+    "target_hz": 30,
+    "execute_steps": 4,
+    "max_lateness_s": 0.05
+  },
+  "checkpoint": {
+    "checkpoint": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/Improved-3D-Diffusion-Policy/data/outputs/g1_dex3_rgb/2026.10.21-16.25.46_gpu4_seed42/checkpoints/latest.ckpt",
+    "sha256": "f5d52bf2431bf7df5b0e7b03f6936f6578af176c68f664d99c23a75a38d75b05",
+    "weights": "ema_model",
+    "tensor_count": 289,
+    "epoch": 301,
+    "global_step": 98126,
+    "device": "cpu",
+    "threads": 4,
+    "augmentation": [
+      {
+        "type": "RandomCrop",
+        "ratio": 0.95
+      },
+      {
+        "_target_": "torchvision.transforms.RandomRotation",
+        "degrees": [
+          -5.0,
+          5.0
+        ],
+        "expand": false
+      },
+      {
+        "_target_": "torchvision.transforms.ColorJitter",
+        "brightness": 0.3,
+        "contrast": 0.4,
+        "saturation": 0.5,
+        "hue": 0.08
+      }
+    ],
+    "normalizer": "checkpoint action limits; identity state/image"
+  },
+  "episodes": [
+    0,
+    1,
+    59
+  ],
+  "max_frames_per_episode": 32,
+  "seed": 42,
+  "predictions": 22,
+  "recorded_targets": 85,
+  "expired_slots": 0,
+  "mae_rad": 0.008596296422183514,
+  "rmse_rad": 0.021765366196632385,
+  "group_mae_rad": {
+    "left_arm": 0.0035419429186731577,
+    "right_arm": 0.02062791772186756,
+    "left_ee": 0.003056673798710108,
+    "right_ee": 0.0071586486883461475
+  },
+  "max_consecutive_target_jump_rad": 0.45492178201675415,
+  "latency_s": {
+    "first": 0.17800037609413266,
+    "mean": 0.16100206998684866,
+    "p50": 0.15981112932786345,
+    "p95": 0.1633746061241254,
+    "max": 0.17800037609413266
+  },
+  "joint_names_source_candidate": [
+    "left_shoulder_pitch_joint",
+    "left_shoulder_roll_joint",
+    "left_shoulder_yaw_joint",
+    "left_elbow_joint",
+    "left_wrist_roll_joint",
+    "left_wrist_pitch_joint",
+    "left_wrist_yaw_joint",
+    "right_shoulder_pitch_joint",
+    "right_shoulder_roll_joint",
+    "right_shoulder_yaw_joint",
+    "right_elbow_joint",
+    "right_wrist_roll_joint",
+    "right_wrist_pitch_joint",
+    "right_wrist_yaw_joint",
+    "left_hand_thumb_0_joint",
+    "left_hand_thumb_1_joint",
+    "left_hand_thumb_2_joint",
+    "left_hand_middle_0_joint",
+    "left_hand_middle_1_joint",
+    "left_hand_index_0_joint",
+    "left_hand_index_1_joint",
+    "right_hand_thumb_0_joint",
+    "right_hand_thumb_1_joint",
+    "right_hand_thumb_2_joint",
+    "right_hand_index_0_joint",
+    "right_hand_index_1_joint",
+    "right_hand_middle_0_joint",
+    "right_hand_middle_1_joint"
+  ],
+  "time_semantics": "virtual recorded timestamps; inference cost excluded; no wall-clock pacing",
+  "limits": "raw predictions recorded; no physical targets sent or hardware limits assumed",
+  "scope": "training demonstrations; not a robot simulation, closed loop, or generalization test",
+  "cwd": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy"
+}

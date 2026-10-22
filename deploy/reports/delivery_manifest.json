@@ -1,0 +1,100 @@
+{
+  "files": [
+    {
+      "path": "deploy/CODING_AGENT_PROMPT.md",
+      "sha256": "98fff223db7053e02c41e634cb8a8c108edb89736fe4919a611e14fe7ad1d6a0"
+    },
+    {
+      "path": "deploy/MIGRATION.md",
+      "sha256": "abbcbc24f583605b1c14f8001dca29ed9de5633e2f7d24ef010ea7ed790c5b16"
+    },
+    {
+      "path": "deploy/OFFLINE_REPORT.md",
+      "sha256": "02e2140f8d2c54d9c6a6dc0dbd2c055bc2d782f3536a8abb204d81a265bfc96d"
+    },
+    {
+      "path": "deploy/PROGRESS.md",
+      "sha256": "23e9974723cb1a2d745f132a2a24604fd93d8306d0b179cbd1147d6431a5877a"
+    },
+    {
+      "path": "deploy/README.md",
+      "sha256": "8f772a7a42c41dacbdb96e9e67297952b3e8332699a430802e48f93835b701fd"
+    },
+    {
+      "path": "deploy/SOURCE_AUDIT.md",
+      "sha256": "5f3a3b72c38e41f228718f86d5d3b0099694990e837a01ee40e9c1dd1bd0eebd"
+    },
+    {
+      "path": "deploy/__init__.py",
+      "sha256": "eca1d101eff4711bcdb2e89ba9f4e02ffc525adf95c70a7b70605ce551dde3b8"
+    },
+    {
+      "path": "deploy/configs/hardware_review.template.json",
+      "sha256": "5e8d4bb374128c4b92e517f346b66ee553e0f6a4a48ae3b2397ca815777bdba9"
+    },
+    {
+      "path": "deploy/configs/right_pick.json",
+      "sha256": "19c9652591c85235387121713fe834ff333713d47158198ead6d39bc0cfc1324"
+    },
+    {
+      "path": "deploy/configs/right_place.json",
+      "sha256": "8c5ffcdb371e3ea2c858b25d208e24673c5923a928ba02354b9d1d60f053ab3b"
+    },
+    {
+      "path": "deploy/configs/right_to_left_handover_low.json",
+      "sha256": "dcf432596b34ba00080a7373b78c1a2c3619fc002519ec49d580f8e3f1264649"
+    },
+    {
+      "path": "deploy/configs/stack.json",
+      "sha256": "08ad460c95b3b0a1f7ef2b1d2445ef944dfe4100f6c81995fae80dd18642087a"
+    },
+    {
+      "path": "deploy/g1dp/__init__.py",
+      "sha256": "42d97c69f5a13a7d8154194a059ed490c2ce157c13deeaac29990f6779a2ccb2"
+    },
+    {
+      "path": "deploy/g1dp/adapters.py",
+      "sha256": "9377288400c4e8134348d403a08b3e09f95e7f6ec0607491f59684d9973bcec5"
+    },
+    {
+      "path": "deploy/g1dp/config.py",
+      "sha256": "8468ab1025b5af477672ed8cf1bacf3fe043e1c6595323e3ed00cb3287d185cc"
+    },
+    {
+      "path": "deploy/g1dp/control.py",
+      "sha256": "8a9077777a3cc8c7b233add450a2d7038923d1235573218135f2b649710b0b85"
+    },
+    {
+      "path": "deploy/g1dp/observations.py",
+      "sha256": "7f7e20ce77762b96020ebd19bb81f4e4a562c636c582d0e0ad7facc09a6b8b61"
+    },
+    {
+      "path": "deploy/g1dp/policy.py",
+      "sha256": "47f6b7799480ba4ff6c296a7529ed4141898a055b69e034c2709b849346d5313"
+    },
+    {
+      "path": "deploy/g1dp/session.py",
+      "sha256": "7738be4ddafa6124f62bd9d1a49dec4c509448b3e038ada6af1570799809f165"
+    },
+    {
+      "path": "deploy/g1dp/sources.py",
+      "sha256": "4d5d1f71603a3db93b714d8c663473f939392a8fd959b0f7be5aef96c5477b40"
+    },
+    {
+      "path": "deploy/replay.py",
+      "sha256": "98e340c9e8e97306f925edbc83f5d70987300158ef96fe095d4e610e990ea7d4"
+    },
+    {
+      "path": "deploy/requirements-offline.txt",
+      "sha256": "28df905cb210cdab2f289d0745f0ee9e3f367afd2dab702ca6a6150d2966d865"
+    },
+    {
+      "path": "deploy/tests/test_execution.py",
+      "sha256": "df378f7f49ac33d571e13f56d1526ede6c3118234e05491a42bd68b304cc0a7c"
+    },
+    {
+      "path": "deploy/verify.py",
+      "sha256": "8b6ca154d0da418b9f7f68cadfedcdd24eec3648ba894ad50913a715ef5a065f"
+    }
+  ]
+}

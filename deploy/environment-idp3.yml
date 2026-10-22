@@ -1,0 +1,39 @@
+# Current RGB deployment dependencies, verified in the existing idp3 environment.
+# This is a rebuild specification, not a complete export of the training environment.
+# Create a separate environment; never overwrite the working idp3 environment.
+# Torch wheel CUDA build must be checked on the destination host (see IDP3_ENVIRONMENT.md).
+name: idp3-deploy
+channels:
+  - defaults
+dependencies:
+  - python=3.8.20
+  - pip=24.2
+  - wheel=0.44.0
+  - pip:
+      - setuptools==59.5.0
+      - torch==2.1.0
+      - torchvision==0.16.0
+      - numpy==1.23.5
+      - opencv-python==4.5.3.56
+      - zarr==2.12.0
+      - numcodecs==0.12.1
+      - hydra-core==1.2.0
+      - omegaconf==2.3.1
+      - diffusers==0.11.1
+      - huggingface-hub==0.25.2
+      - timm==0.9.7
+      - einops==0.4.1
+      - dill==0.3.5.1
+      - termcolor==2.4.0
+      - gdown==5.2.2
+      - pillow==10.4.0
+      - scipy==1.10.1
+      - numba==0.56.4
+      - llvmlite==0.39.1
+      - PyYAML==6.0.3
+      - safetensors==0.5.3
+      - antlr4-python3-runtime==4.9.3
+      - importlib-metadata==8.5.0
+      - importlib-resources==6.4.5
+# R3M is loaded from ../third_party/r3m source by the deployment loader.
+# Hardware SDK, camera client and dynamics dependencies are intentionally separate.

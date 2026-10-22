@@ -1,0 +1,15 @@
+{
+  "path_base": "../..",
+  "task": "right_pick",
+  "training_root": "Improved-3D-Diffusion-Policy",
+  "checkpoint": "Improved-3D-Diffusion-Policy/data/outputs/g1_dex3_rgb/2026.10.21-16.25.46_gpu4_seed42/checkpoints/latest.ckpt",
+  "source": "zarr",
+  "zarr": "tsingtec_training_data/right_pick",
+  "raw_root": "tsingtec_raw_data/dex3_pick/right",
+  "device": "cpu",
+  "threads": 4,
+  "seed": 42,
+  "target_hz": 30,
+  "execute_steps": 4,
+  "max_lateness_s": 0.05
+}

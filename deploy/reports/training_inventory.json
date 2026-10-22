@@ -1,0 +1,66 @@
+[
+  {
+    "run": "2026.10.21-16.25.46_gpu4_seed42",
+    "last_logged_metrics": {
+      "train_loss": 0.0016915287474845964,
+      "global_step": 98125,
+      "epoch": 300,
+      "lr": 0.0,
+      "train_action_mse_error": 0.00028550109709613025,
+      "test_mean_score": -0.0016915287474845964
+    },
+    "latest_size_bytes": 1435525464,
+    "epoch300": [
+      "epoch=0300-test_mean_score=-0.002.ckpt"
+    ],
+    "hydra_config": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/Improved-3D-Diffusion-Policy/data/outputs/g1_dex3_rgb/2026.10.21-16.25.46_gpu4_seed42/.hydra/config.yaml"
+  },
+  {
+    "run": "2026.10.21-16.36.38_right_place_gpu4_seed42",
+    "last_logged_metrics": {
+      "train_loss": 0.001989303430794583,
+      "global_step": 79463,
+      "epoch": 300,
+      "lr": 0.0,
+      "train_action_mse_error": 0.00025579321663826704,
+      "test_mean_score": -0.001989303430794583
+    },
+    "latest_size_bytes": 1435525464,
+    "epoch300": [
+      "epoch=0300-test_mean_score=-0.002.ckpt"
+    ],
+    "hydra_config": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/Improved-3D-Diffusion-Policy/data/outputs/g1_dex3_rgb/2026.10.21-16.36.38_right_place_gpu4_seed42/.hydra/config.yaml"
+  },
+  {
+    "run": "2026.10.21-16.36.38_right_to_left_handover_low_gpu5_seed42",
+    "last_logged_metrics": {
+      "train_loss": 0.0017239170665878034,
+      "global_step": 138459,
+      "epoch": 300,
+      "lr": 0.0,
+      "train_action_mse_error": 0.00028240654501132667,
+      "test_mean_score": -0.0017239170665878034
+    },
+    "latest_size_bytes": 1435525528,
+    "epoch300": [
+      "epoch=0300-test_mean_score=-0.002.ckpt"
+    ],
+    "hydra_config": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/Improved-3D-Diffusion-Policy/data/outputs/g1_dex3_rgb/2026.10.21-16.36.38_right_to_left_handover_low_gpu5_seed42/.hydra/config.yaml"
+  },
+  {
+    "run": "2026.10.21-16.36.38_stack_gpu5_seed42",
+    "last_logged_metrics": {
+      "train_loss": 0.0018011631311788366,
+      "global_step": 88192,
+      "epoch": 300,
+      "lr": 0.0,
+      "train_action_mse_error": 0.0007549415458925068,
+      "test_mean_score": -0.0018011631311788366
+    },
+    "latest_size_bytes": 1435525400,
+    "epoch300": [
+      "epoch=0300-test_mean_score=-0.002.ckpt"
+    ],
+    "hydra_config": "/home/dingzirong/workspace/Improved-3D-Diffusion-Policy/Improved-3D-Diffusion-Policy/data/outputs/g1_dex3_rgb/2026.10.21-16.36.38_stack_gpu5_seed42/.hydra/config.yaml"
+  }
+]

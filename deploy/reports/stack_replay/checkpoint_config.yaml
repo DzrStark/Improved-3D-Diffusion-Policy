@@ -1,0 +1,218 @@
+name: train_g1_dex3_rgb
+_target_: diffusion_policy_3d.workspace.dp_workspace.DPWorkspace
+task_name: g1_dex3_stack
+shape_meta:
+  obs:
+    image:
+      shape:
+      - 3
+      - 224
+      - 224
+      type: rgb
+      horizon: 2
+    agent_pos:
+      shape:
+      - 28
+      type: low_dim
+      horizon: 2
+  action:
+    shape:
+    - 28
+    horizon: 16
+exp_name: g1_dex3_stack_rgb
+horizon: 16
+n_action_steps: 16
+n_obs_steps: 2
+n_latency_steps: 0
+dataset_obs_steps: 2
+keypoint_visible_rate: 1.0
+obs_as_global_cond: true
+use_image: true
+policy:
+  _target_: diffusion_policy_3d.policy.diffusion_image_policy.DiffusionImagePolicy
+  condition_type: film
+  diffusion_step_embed_dim: 128
+  down_dims:
+  - 256
+  - 512
+  - 1024
+  horizon: 16
+  kernel_size: 5
+  n_action_steps: 16
+  n_groups: 8
+  n_obs_steps: 2
+  noise_scheduler:
+    _target_: diffusers.schedulers.scheduling_ddim.DDIMScheduler
+    num_train_timesteps: 50
+    beta_start: 0.0001
+    beta_end: 0.02
+    beta_schedule: squaredcos_cap_v2
+    clip_sample: true
+    set_alpha_to_one: true
+    steps_offset: 0
+    prediction_type: epsilon
+  num_inference_steps: 10
+  obs_as_global_cond: true
+  shape_meta:
+    obs:
+      image:
+        shape:
+        - 3
+        - 224
+        - 224
+        type: rgb
+        horizon: 2
+      agent_pos:
+        shape:
+        - 28
+        type: low_dim
+        horizon: 2
+    action:
+      shape:
+      - 28
+      horizon: 16
+  obs_encoder:
+    _target_: diffusion_policy_3d.model.vision.timm_obs_encoder.TimmObsEncoder
+    shape_meta:
+      obs:
+        image:
+          shape:
+          - 3
+          - 224
+          - 224
+          type: rgb
+          horizon: 2
+        agent_pos:
+          shape:
+          - 28
+          type: low_dim
+          horizon: 2
+      action:
+        shape:
+        - 28
+        horizon: 16
+    model_name: r3m
+    pretrained: true
+    frozen: false
+    global_pool: ''
+    feature_aggregation: null
+    position_encording: sinusoidal
+    downsample_ratio: 32
+    transforms:
+    - type: RandomCrop
+      ratio: 0.95
+    - _target_: torchvision.transforms.RandomRotation
+      degrees:
+      - -5.0
+      - 5.0
+      expand: false
+    - _target_: torchvision.transforms.ColorJitter
+      brightness: 0.3
+      contrast: 0.4
+      saturation: 0.5
+      hue: 0.08
+    use_group_norm: true
+    share_rgb_model: false
+    imagenet_norm: true
+ema:
+  _target_: diffusion_policy_3d.model.diffusion.ema_model.EMAModel
+  update_after_step: 0
+  inv_gamma: 1.0
+  power: 0.75
+  min_value: 0.0
+  max_value: 0.9999
+dataloader:
+  batch_size: 32
+  num_workers: 8
+  shuffle: true
+  pin_memory: true
+  persistent_workers: false
+val_dataloader:
+  batch_size: 32
+  num_workers: 8
+  shuffle: false
+  pin_memory: true
+  persistent_workers: false
+optimizer:
+  _target_: torch.optim.AdamW
+  lr: 0.0001
+  betas:
+  - 0.95
+  - 0.999
+  eps: 1.0e-08
+  weight_decay: 1.0e-06
+training:
+  device: cuda:0
+  seed: 42
+  debug: false
+  resume: false
+  lr_scheduler: cosine
+  lr_warmup_steps: 500
+  num_epochs: 301
+  gradient_accumulate_every: 1
+  use_ema: true
+  rollout_every: 200
+  checkpoint_every: 100
+  val_every: 100
+  sample_every: 5
+  max_train_steps: null
+  max_val_steps: null
+  tqdm_interval_sec: 1.0
+  save_video: false
+logging:
+  group: g1_dex3_stack_rgb
+  id: null
+  mode: online
+  name: g1_dex3_stack_seed42_2026.10.21-16.39.16.909145
+  project: g1_dex3_rgb
+  resume: false
+  tags:
+  - g1-d
+  - dex3
+  - stack
+  - rgb
+  - r3m
+checkpoint:
+  save_ckpt: true
+  topk:
+    monitor_key: test_mean_score
+    mode: max
+    k: 1
+    format_str: epoch={epoch:04d}-test_mean_score={test_mean_score:.3f}.ckpt
+  save_last_ckpt: true
+  save_last_snapshot: false
+multi_run:
+  run_dir: /home/dingzirong/workspace/Improved-3D-Diffusion-Policy/Improved-3D-Diffusion-Policy/data/outputs/g1_dex3_rgb/2026.10.21-16.36.38_stack_gpu5_seed42
+  wandb_name_base: g1_dex3_stack_seed42_2026.10.21-16.39.16.909145
+task:
+  name: g1_dex3_stack
+  shape_meta:
+    obs:
+      image:
+        shape:
+        - 3
+        - 224
+        - 224
+        type: rgb
+        horizon: 2
+      agent_pos:
+        shape:
+        - 28
+        type: low_dim
+        horizon: 2
+    action:
+      shape:
+      - 28
+      horizon: 16
+  dataset:
+    _target_: diffusion_policy_3d.dataset.gr1_dex_dataset_image.GR1DexDatasetImage
+    zarr_path: /home/dingzirong/workspace/Improved-3D-Diffusion-Policy/tsingtec_training_data/stack
+    horizon: 16
+    pad_before: 1
+    pad_after: 15
+    seed: 42
+    val_ratio: 0.0
+    max_train_episodes: null
+    task_name: g1_dex3_stack
+    use_img: true
+    use_depth: false
